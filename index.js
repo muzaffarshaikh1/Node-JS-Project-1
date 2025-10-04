@@ -3,6 +3,8 @@ const { Collection } = require("mongodb");
 const findAll = require("./controllers/findAll");
 const findOne = require("./controllers/findOne");
 const updateOne = require("./controllers/updateOne");
+const insertOne = require("./controllers/insertOne");
+const deleteOne = require("./controllers/deleteOne");
 
 const app = express();
 
@@ -11,9 +13,13 @@ app.use(express.urlencoded({extended:true}));
 
 app.get("/users",findAll);
 
+app.post("/users",insertOne)
+
 app.get("/users/:id",findOne);
 
 app.put("/users/:id",updateOne);
+
+app.delete("/users/:id",deleteOne);
 
 app.listen(3000);
 

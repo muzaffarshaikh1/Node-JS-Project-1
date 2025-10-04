@@ -1,20 +1,23 @@
+const { ObjectId } = require('mongodb');
 const connectDB = require('../database/db');
-async function insertOne(req,resp){
+async function deleteOne(req,resp){
     try {
         const db = await connectDB();
         const users = db.collection('users');
-        const input = req.body;
 
-        const result = await users.insertOne(input);
+        const id = req.params.id;
+
+        const result = await users.deleteOne({_id:new ObjectId(id)});
 
         if(result){
             resp.send('success');
         }else{
-            resp.send('unable to insert');
+            resp.send('unable to delete');
         }
+
     } catch (error) {
         console.error("inserOne:",error);
     }
 }
 
-module.exports = insertOne;
+module.exports = deleteOne;
